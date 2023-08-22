@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Logo from "./Logo"
 import { getUser } from "../services/userAPI";
 import Loading from "./Loading";
+import NavBar from "./Navbar";
 
 function Header() {
     const [userName, setUserName] = useState('');
@@ -23,11 +24,14 @@ function Header() {
             {
                 loading ? (<Loading />) : (
                     < header >
-                        <Logo />
                         <div>
-                            <img src="" alt="" className="" />
-                            <p>{userName}</p>
+                            <Logo />
+                            <div>
+                                <img src="" alt="" className="" />
+                                <p>{userName}</p>
+                            </div>
                         </div>
+                        <NavBar />
                     </header >
                 )
             }

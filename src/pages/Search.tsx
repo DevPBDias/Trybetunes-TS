@@ -1,10 +1,11 @@
 import Header from "../components/Header"
+import SearchForm from "../components/SearchForm"
 
 function Search() {
     return (
         <div>
             <Header />
-            Search
+            <SearchForm />
         </div>
     )
 }
