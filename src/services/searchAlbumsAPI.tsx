@@ -1,4 +1,15 @@
-const searchAlbumsAPI = async (artist) => {
+export type IArtist = {
+  artistId: number,
+  artistName: string,
+  collectionId: number,
+  collectionName: string,
+  collectionPrice: number,
+  artworkUrl100: string,
+  releaseDate: string,
+  trackCount: number
+}
+
+export const searchAlbumsAPI = async (artist: any) => {
   const artistNameURL = encodeURI(artist).replaceAll('%20', '+');
 
   const getAlbumsAPI = `https://itunes.apple.com/search?entity=album&term=${artistNameURL}&attribute=allArtistTerm`;
@@ -7,7 +18,7 @@ const searchAlbumsAPI = async (artist) => {
 
   const { results } = await APIResponse.json();
 
-  const response = results.map(
+  const response: IArtist[] = results.map(
     ({
       artistId,
       artistName,
@@ -17,7 +28,7 @@ const searchAlbumsAPI = async (artist) => {
       artworkUrl100,
       releaseDate,
       trackCount,
-    }) => ({
+    }: IArtist) => ({
       artistId,
       artistName,
       collectionId,
@@ -30,5 +41,3 @@ const searchAlbumsAPI = async (artist) => {
   );
   return response;
 };
-
-export default searchAlbumsAPI;
