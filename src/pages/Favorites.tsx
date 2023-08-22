@@ -1,7 +1,11 @@
+import Header from "../components/Header"
 
 function Favorites() {
     return (
-        <div>Favorites</div>
+        <div>
+            <Header />
+            Favorites
+        </div>
     )
 }
 

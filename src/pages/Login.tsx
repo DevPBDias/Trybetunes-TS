@@ -44,7 +44,6 @@ function Login() {
             {
                 loading ? (<Loading />) : (
                     <main>
-
                         <Logo />
                         <form className="formContainer">
                             <label htmlFor="name">Bem vindo ao Trybetunes!</label>

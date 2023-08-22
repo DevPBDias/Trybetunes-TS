@@ -1,7 +1,11 @@
+import Header from "../components/Header"
 
 function Search() {
     return (
-        <div>Search</div>
+        <div>
+            <Header />
+            Search
+        </div>
     )
 }
 

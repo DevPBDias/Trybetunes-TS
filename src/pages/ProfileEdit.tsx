@@ -1,7 +1,11 @@
+import Header from "../components/Header"
 
 function ProfileEdit() {
     return (
-        <div>ProfileEdit</div>
+        <div>
+            <Header />
+            ProfileEdit
+        </div>
     )
 }
 
