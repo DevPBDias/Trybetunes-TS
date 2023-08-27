@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import Logo from "./Logo"
-import { getUser } from "../services/userAPI";
 import Loading from "./Loading";
 import NavBar from "./Navbar";
 
+const USER_KEY: string = 'user';
+
 function Header() {
     const [userName, setUserName] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const retrieveData = async () => {
-            setLoading(true)
-            const retrieveName: any = await getUser()
-            setUserName(retrieveName.name)
+            const getUserStorage: any = localStorage.getItem(USER_KEY);
+            const readUser = JSON.parse(getUserStorage);
+            setUserName(readUser.name)
             setLoading(false)
         }
         retrieveData()
     }, [])
-
 
     return (
         <>

@@ -1,22 +1,21 @@
+import { Link } from "react-router-dom"
+
 type ArtistProps = {
-    key: number
+    id: number
     artistName: string,
     collectionName: string,
     artworkUrl100: string,
 }
 
 function AlbumCard(props: ArtistProps) {
-    const { artistName, collectionName, artworkUrl100 } = props
+    const { artistName, collectionName, artworkUrl100, id } = props
 
     return (
-        <main>
-            <p>Resultado de albuns de {artistName}:</p>
-            <section>
-                <img src={artworkUrl100} alt={collectionName} />
-                <p>{collectionName}</p>
-                <p>{artistName}</p>
-            </section>
-        </main>
+        <Link to={`/album/${id}`}>
+            <img src={artworkUrl100} alt={collectionName} />
+            <p>{collectionName}</p>
+            <p>{artistName}</p>
+        </Link>
     )
 }
 

@@ -1,13 +1,17 @@
-const FAVORITE_SONGS_KEY = 'favorite_songs';
-const TIMEOUT = 500;
-const SUCCESS_STATUS = 'OK';
+const FAVORITE_SONGS_KEY: any = 'favorite_songs';
+const TIMEOUT: number = 500;
+const SUCCESS_STATUS: string = 'OK';
 
-if (!JSON.parse(localStorage.getItem(FAVORITE_SONGS_KEY))) {
+const getLocal: any = localStorage.getItem(FAVORITE_SONGS_KEY)
+const validLocal: string | null = JSON.parse(getLocal)
+
+if (!validLocal) {
   localStorage.setItem(FAVORITE_SONGS_KEY, JSON.stringify([]));
 }
-const readFavoriteSongs = () => JSON.parse(localStorage.getItem(FAVORITE_SONGS_KEY));
 
-const saveFavoriteSongs = (favoriteSongs) => localStorage
+const readFavoriteSongs = () => JSON.parse(getLocal);
+
+const saveFavoriteSongs = (favoriteSongs: any) => localStorage
   .setItem(FAVORITE_SONGS_KEY, JSON.stringify(favoriteSongs));
 
 // --------------------------------------------------------------------
@@ -17,7 +21,7 @@ const saveFavoriteSongs = (favoriteSongs) => localStorage
 // não se preocupe, estudaremos isso futuramente.
 // --------------------------------------------------------------------
 
-const simulateRequest = (response) => (callback) => {
+const simulateRequest = (response: any) => (callback: any) => {
   setTimeout(() => {
     callback(response);
   }, TIMEOUT);
@@ -28,7 +32,7 @@ export const getFavoriteSongs = () => new Promise((resolve) => {
   simulateRequest(favoriteSongs)(resolve);
 });
 
-export const addSong = (song) => new Promise((resolve) => {
+export const addSong = (song: any) => new Promise((resolve) => {
   if (song) {
     const favoriteSongs = readFavoriteSongs();
     saveFavoriteSongs([...favoriteSongs, song]);
@@ -36,8 +40,8 @@ export const addSong = (song) => new Promise((resolve) => {
   simulateRequest(SUCCESS_STATUS)(resolve);
 });
 
-export const removeSong = (song) => new Promise((resolve) => {
+export const removeSong = (song: any) => new Promise((resolve) => {
   const favoriteSongs = readFavoriteSongs();
-  saveFavoriteSongs(favoriteSongs.filter((s) => s.trackId !== song.trackId));
+  saveFavoriteSongs(favoriteSongs.filter((s: any) => s.trackId !== song.trackId));
   simulateRequest(SUCCESS_STATUS)(resolve);
 });

@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
-import Favorites from './pages/Favorites'
 import Search from './pages/Search'
 import Album from './pages/Album'
 import Profile from './pages/Profile'
@@ -13,7 +12,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/favorites" element={<Favorites />} />
       <Route path="/search" element={<Search />} />
       <Route path="/album/:id" element={<Album />} />
       <Route path="/profile" element={<Profile />} />

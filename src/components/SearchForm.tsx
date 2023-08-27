@@ -1,55 +1,65 @@
 import { useState } from "react"
 import { searchAlbumsAPI } from "../services/searchAlbumsAPI";
-import Loading from "./Loading";
 import AlbumCard from "./AlbumCard";
+import Forms from "./Forms";
 
-function SearchForm() {
+type ISearchForm = {
+    loadingForm: boolean
+}
+
+function SearchForm({ loadingForm }: ISearchForm) {
     const [disabled, setDisabled] = useState(true);
-    const [loading, setLoading] = useState(false);
+    const [loadingResult, setloadingResult] = useState(false);
+    const [searchedName, setSearchedName] = useState('');
     const [artistName, setArtistName] = useState('');
     const [albumsList, setAlbumsList]: any = useState();
 
-    const handleChange = ({ target }: any) => {
+    const handleChange = ({ target }: any): void => {
         setArtistName(target.value)
         target.value.length >= 2 ? setDisabled(false) : setDisabled(true)
     }
 
-    const handleClick = async () => {
-        setArtistName('')
-        setLoading(true)
+    const handleClick = async (): Promise<void> => {
+        setSearchedName(artistName)
         const list = await searchAlbumsAPI(artistName)
         setAlbumsList(list);
-        setLoading(false)
+        setloadingResult(true)
+        setArtistName('')
     }
 
     return (
-        <form>
-            <input
-                type="text"
-                value={artistName}
-                placeholder="Nome do artista"
-                onChange={handleChange}
-            />
-            <button
-                disabled={disabled}
-                type="button"
-                onClick={handleClick}
-            >
-                Procurar
-            </button>
+        <main>
             {
-                loading ? (<Loading />) : (
-                    albumsList && albumsList.map((albums: any) => (
-                        <AlbumCard
-                            key={albums.collectionId}
-                            artistName={albums.artistName}
-                            collectionName={albums.collectionName}
-                            artworkUrl100={albums.artworkUrl100}
-                        />
-                    )
-                    ))
+                loadingForm && (
+                    <Forms
+                        searchedName={artistName}
+                        btnDisable={disabled}
+                        inputHandle={handleChange}
+                        btnHandle={handleClick}
+                    />)
             }
-        </form>
+            {
+                loadingResult && (<p>Resultado de albuns de: {searchedName.toUpperCase()}</p>)
+            }
+            {
+                albumsList?.length === 0 ? (<p>Nenhum álbum foi encontrado</p>) : (
+                    <section>
+                        {
+                            albumsList?.map((albums: any) => (
+                                <div>
+                                    <AlbumCard
+                                        key={albums.collectionId}
+                                        id={albums.collectionId}
+                                        artistName={albums.artistName}
+                                        collectionName={albums.collectionName}
+                                        artworkUrl100={albums.artworkUrl100}
+                                    />
+                                </div>))
+                        }
+                    </section>
+                )
+            }
+        </main >
     )
 }
 
