@@ -21,7 +21,7 @@ function Forms(props: FormProps) {
                 onChange={inputHandle}
             />
             <button
-                className="font-mono text-center text-sm m-4 px-8 py-2 bg-green-500  rounded-full shadow-lg"
+                className="font-mono text-center text-sm m-4 px-8 py-2 bg-green-500  rounded-full shadow-lg disabled:bg-slate-500"
                 disabled={btnDisable}
                 type="button"
                 onClick={btnHandle}

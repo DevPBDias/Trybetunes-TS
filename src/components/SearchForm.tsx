@@ -2,6 +2,7 @@ import { useState } from "react"
 import { searchAlbumsAPI } from "../services/searchAlbumsAPI";
 import AlbumCard from "./AlbumCard";
 import Forms from "./Forms";
+import Loading from "./Loading";
 
 type ISearchForm = {
     loadingForm: boolean
@@ -9,7 +10,8 @@ type ISearchForm = {
 
 function SearchForm({ loadingForm }: ISearchForm) {
     const [disabled, setDisabled] = useState(true);
-    const [loadingResult, setloadingResult] = useState(false);
+    const [loadingResult, setLoadingResult] = useState(true);
+    const [loadingAlbums, setLoadingAlbums] = useState(false);
     const [searchedName, setSearchedName] = useState('');
     const [artistName, setArtistName] = useState('');
     const [albumsList, setAlbumsList]: any = useState();
@@ -20,10 +22,12 @@ function SearchForm({ loadingForm }: ISearchForm) {
     }
 
     const handleClick = async (): Promise<void> => {
+        setLoadingAlbums(true)
         setSearchedName(artistName)
         const list = await searchAlbumsAPI(artistName)
         setAlbumsList(list);
-        setloadingResult(true)
+        setLoadingAlbums(false)
+        setLoadingResult(false)
         setArtistName('')
     }
 
@@ -41,30 +45,32 @@ function SearchForm({ loadingForm }: ISearchForm) {
                     />)
             }
             {
-                loadingResult && (<p
+                !loadingResult && (<p
                     className="font-mono text-2xl p-6 text-center "
                 >Resultado de albuns de: {searchedName.toUpperCase()}</p>)
             }
             {
-                albumsList?.length === 0 ? (<p>Nenhum álbum foi encontrado</p>) : (
-                    <section
-                        className="flex flex-row flex-wrap justify-items-center justify-around items-center"
-                    >
-                        {
-                            albumsList?.map((albums: any) => (
-                                <div
-                                    className="border-solid border-2 border-green-500 w-56 h-80 m-2 rounded-xl shadow"
-                                >
-                                    <AlbumCard
-                                        key={albums.collectionId}
-                                        id={albums.collectionId}
-                                        artistName={albums.artistName}
-                                        collectionName={albums.collectionName}
-                                        artworkUrl100={albums.artworkUrl100}
-                                    />
-                                </div>))
-                        }
-                    </section>
+                loadingAlbums ? <Loading /> : (
+                    albumsList?.length === 0 ? (<p>Nenhum álbum foi encontrado</p>) : (
+                        <section
+                            className="flex flex-row flex-wrap justify-items-center justify-around items-center"
+                        >
+                            {
+                                albumsList?.map((albums: any) => (
+                                    <div
+                                        className="border-solid border-2 border-green-500 w-56 h-80 m-2 rounded-xl shadow"
+                                    >
+                                        <AlbumCard
+                                            key={albums.collectionId}
+                                            id={albums.collectionId}
+                                            artistName={albums.artistName}
+                                            collectionName={albums.collectionName}
+                                            artworkUrl100={albums.artworkUrl100}
+                                        />
+                                    </div>))
+                            }
+                        </section>
+                    )
                 )
             }
         </main >

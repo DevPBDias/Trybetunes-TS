@@ -14,7 +14,7 @@ function ProfileCard({ data }: any) {
                 className="bg-slate-400 m-10 rounded-xl shadow-xl text-gray-950"
             >
                 <div
-                    className="flex flex-row flex-nowrap p-10 justify-items-center items-center"
+                    className="flex flex-row flex-nowrap p-2 justify-items-center items-center justify-around"
                 >
                     {
                         data.image === '' ?
