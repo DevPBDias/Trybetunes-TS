@@ -26,16 +26,28 @@ function Album() {
     return (
         <main>
             <Header />
-            {
-                !albumInfo ? <Loading /> : (
-                    <div>
-                        <img src={albumInfo.artworkUrl100} alt={albumInfo.collectionName} />
-                        <p>{albumInfo.artistName}</p>
-                        <p>{albumInfo.collectionName}</p>
-                    </div>
-                )
-            }
-            <MusicCard musicData={musicList} />
+            <section
+                className="flex relative flex-row flex-nowrap justify-items-center justify-around p-6"
+            >
+                {
+                    !albumInfo ? <Loading /> : (
+                        <div
+                            className="border-solid border-2 fixed left-10 border-green-500 w-72 h-80 rounded-xl shadow m-6"
+                        >
+                            <img
+                                className="w-full h-48 rounded-t-lg"
+                                src={albumInfo.artworkUrl100} alt={albumInfo.collectionName} />
+                            <p
+                                className="text-sm text-center p-2"
+                            >{albumInfo.artistName}</p>
+                            <p
+                                className="text-sm text-center font-bold p-2"
+                            >{albumInfo.collectionName}</p>
+                        </div>
+                    )
+                }
+                <MusicCard musicData={musicList} />
+            </section>
         </main>
     )
 }

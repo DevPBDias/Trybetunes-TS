@@ -28,7 +28,9 @@ function SearchForm({ loadingForm }: ISearchForm) {
     }
 
     return (
-        <main>
+        <main
+            className="font-mono flex flex-col justify-items-center items-center"
+        >
             {
                 loadingForm && (
                     <Forms
@@ -39,14 +41,20 @@ function SearchForm({ loadingForm }: ISearchForm) {
                     />)
             }
             {
-                loadingResult && (<p>Resultado de albuns de: {searchedName.toUpperCase()}</p>)
+                loadingResult && (<p
+                    className="font-mono text-2xl p-6 text-center "
+                >Resultado de albuns de: {searchedName.toUpperCase()}</p>)
             }
             {
                 albumsList?.length === 0 ? (<p>Nenhum álbum foi encontrado</p>) : (
-                    <section>
+                    <section
+                        className="flex flex-row flex-wrap justify-items-center justify-around items-center"
+                    >
                         {
                             albumsList?.map((albums: any) => (
-                                <div>
+                                <div
+                                    className="border-solid border-2 border-green-500 w-56 h-80 m-2 rounded-xl shadow"
+                                >
                                     <AlbumCard
                                         key={albums.collectionId}
                                         id={albums.collectionId}

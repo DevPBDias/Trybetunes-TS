@@ -43,12 +43,16 @@ function Login() {
         <>
             {
                 loading ? (<Loading />) : (
-                    <main>
+                    <main
+                        className="bg-green-700 md:flex min-h-screen flex-col items-center justify-items-center">
                         <Logo />
-                        <form className="formContainer">
-                            <label htmlFor="name">Bem vindo ao Trybetunes!</label>
+                        <form
+                            className="md:flex flex-col items-center justify-items-center bg-white p-16 rounded-xl shadow">
+                            <label
+                                className="font-mono text-center text-2xl p-2 mb-4"
+                                htmlFor="name">Bem vindo ao Trybetunes!</label>
                             <input
-                                className="formContainer"
+                                className="font-mono text-left text-sm p-2 mb-4 bg-gray-200 rounded-lg"
                                 id="name"
                                 value={name}
                                 type="text"
@@ -57,17 +61,17 @@ function Login() {
                             />
                             <button
                                 type="button"
-                                className="formContainer"
+                                className="font-mono text-center text-sm mb-4 px-8 py-2 bg-green-500  rounded-full "
                                 onClick={handleClick}
                             >
                                 Entrar
                             </button>
+                            {
+                                error && (
+                                    <MsgError message={msgError} />
+                                )
+                            }
                         </form>
-                        {
-                            error && (
-                                <MsgError message={msgError} />
-                            )
-                        }
                     </main>
                 )
             }

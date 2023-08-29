@@ -1,7 +1,8 @@
 import { useState } from "react"
-import Logo from "./Logo"
+import userIcon from "../assets/userIcon.png"
 import { updateUser } from "../services/userAPI"
 import { useNavigate } from "react-router-dom"
+import UserImage from "./UserImage"
 
 const columns = 30
 const rows = 10
@@ -19,7 +20,7 @@ function ProfileForm({ data }: any) {
 
     const validateEmail = (userEmail: string) => {
         const isValidEmail = emailRegex.test(userEmail);
-        !isValidEmail ? alert('Email incorreto') : ''
+        isValidEmail ? setBtnDisable(true) : setBtnDisable(false)
     }
 
     const validateFields = (key: string) => {
@@ -39,60 +40,95 @@ function ProfileForm({ data }: any) {
         validateEmail(newUser.email)
         setBtnDisable(false)
         await updateUser(newUser)
-        navigate('/profile')
+        if (!btnDisable) {
+            navigate('/profile')
+        }
     }
 
     return (
-        <main>
-            <div>
-                <Logo />
-                <input type="file" name="image" />
-            </div>
-            <div>
-                <div>
-                    <label htmlFor="name">Nome</label>
-                    <p id="name">Fique a vontade para usar seu nome social</p>
-                    <input
-                        id="name"
-                        name="name"
-                        value={newUser.name}
-                        type="text"
-                        onChange={handleChange}
-                        placeholder="Seu nome"
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">E-mail</label>
-                    <p id="email">Escolha um e-mail que consulte diariamente</p>
-                    <input
-                        id="email"
-                        name="email"
-                        value={newUser.email}
-                        type="text"
-                        onChange={handleChange}
-                        placeholder="user@user.com"
-                    />
-                </div>
-                <div>
-                    <label htmlFor="aboutMe">Descrição</label>
-                    <textarea
-                        value={newUser.description}
-                        name="description"
-                        id="aboutMe"
-                        cols={columns}
-                        rows={rows}
-                        onChange={handleChange}
-                        placeholder=" Sobre mim"
-                    />
-                </div>
-                <button
-                    type="button"
-                    disabled={btnDisable}
-                    onClick={handleCLick}
+        <main
+            className="flex flex-col justify-items-center items-center font-mono"
+        >
+            <section
+                className="bg-slate-400 m-10 rounded-xl shadow-xl text-gray-950 flex flex-col flex-nowrap justify-items-center items-center"
+            >
+                <div
+                    className="flex flex-col flex-nowrap p-6 justify-items-center items-center"
                 >
-                    Salvar
-                </button>
-            </div>
+                    <UserImage image={userIcon} nameImg="userIcon" />
+                    <input
+                        type="file" name="image" />
+                </div>
+                <div
+                    className="flex flex-col flex-nowrap justify-items-center items-center"
+                >
+                    <div
+                        className="flex flex-col flex-nowrap p-2 justify-items-center items-center"
+                    >
+                        <label
+                            className="font-bold text-left w-full"
+                            htmlFor="name">Nome:</label>
+                        <p
+                            className="italic ml-4 text-left w-full"
+                            id="name">Fique a vontade para usar seu nome social</p>
+                        <input
+                            className="rounded-xl shadow-xl w-96 p-2"
+                            id="name"
+                            name="name"
+                            value={newUser.name}
+                            type="text"
+                            onChange={handleChange}
+                            placeholder="Seu nome"
+                        />
+                    </div>
+                    <div
+                        className="flex flex-col flex-nowrap p-2 justify-items-center items-center"
+                    >
+                        <label
+                            className="font-bold text-left w-full"
+                            htmlFor="email">E-mail:</label>
+                        <p
+                            className="italic ml-4 text-left w-full"
+                            id="email">Escolha um e-mail que consulte diariamente</p>
+                        <input
+                            className="rounded-xl shadow-xl w-96 p-2"
+                            id="email"
+                            name="email"
+                            value={newUser.email}
+                            type="text"
+                            onChange={handleChange}
+                            placeholder="user@user.com"
+                        />
+                    </div>
+                    <div
+                        className="flex flex-col flex-nowrap p-2 justify-items-center items-center w-full"
+                    >
+                        <label
+                            className="font-bold text-left w-full"
+                            htmlFor="aboutMe">Descrição:</label>
+                        <textarea
+                            className="text-left w-96 p-2
+                            rounded-xl shadow-xl"
+                            value={newUser.description}
+                            name="description"
+                            id="aboutMe"
+                            cols={columns}
+                            rows={rows}
+                            onChange={handleChange}
+                            placeholder=" Sobre mim"
+                        />
+                    </div>
+                    <button
+                        className="font-mono text-center text-sm p-2 h-10 rounded-full shadow-xl 
+                        border-solid border-2 border-black m-4 enabled:hover:bg-green-500 disabled:opacity-75"
+                        type="button"
+                        disabled={btnDisable}
+                        onClick={handleCLick}
+                    >
+                        Salvar
+                    </button>
+                </div>
+            </section>
         </main>
     )
 }

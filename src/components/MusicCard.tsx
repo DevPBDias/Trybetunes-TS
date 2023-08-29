@@ -10,12 +10,20 @@ function MusicCard({ musicData }: musicCardProps) {
         <div>
             {
                 removeData?.length === 0 ? (<p>Nenhum álbum foi encontrado</p>) : (
-                    <section>
+                    <section
+                        className="font-mono flex flex-col flex-wrap justify-items-center items-center w-full"
+
+                    >
                         {
                             removeData?.map((music: any, key) => (
-                                <div key={key}>
-                                    <p>{music.trackName}</p>
-                                    <audio data-testid="audio-component" src={music.previewUrl} controls>
+                                <div
+                                    className="m-4 text-center flex flex-col flex-wrap justify-items-center items-center"
+                                    key={key}>
+                                    <p
+                                        className="font-bold p-2"
+                                    >{music.trackName}</p>
+                                    <audio
+                                        data-testid="audio-component" src={music.previewUrl} controls>
                                         <track kind="captions" />
                                         O seu navegador não suporta o elemento <code>audio</code>.
                                     </audio>

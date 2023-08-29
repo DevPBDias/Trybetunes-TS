@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import './App.css'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Search from './pages/Search'

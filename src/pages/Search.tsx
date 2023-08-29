@@ -20,8 +20,7 @@ function Search() {
 
     return (
         <div>
-            <Header
-            />
+            <Header />
             <SearchForm
                 loadingForm={loading}
             />
